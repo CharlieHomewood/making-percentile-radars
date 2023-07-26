@@ -527,6 +527,9 @@ final_table_outfield <- final_table_outfield %>%
     across(where(is.numeric), sum)
   ) 
 
+final_table_outfield <- final_table_outfield %>% 
+  filter(MP <= 38)
+
 final_table_outfield$Nation <- str_remove(final_table_outfield$Nation, "^[^,]+,\\s*")
 final_table_outfield$Pos <- str_remove(final_table_outfield$Pos, "^[^,]+,\\s*")
 final_table_outfield$Age <- str_remove(final_table_outfield$Age, "^[^,]+,\\s*")
@@ -540,6 +543,8 @@ final_table_outfield$Comp <- sapply(final_table_outfield$Comp, function(x) {
     x
   }
 })
+
+final_table_outfield <- final_table_outfield %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
 final_table_outfield[ , 7:ncol(final_table_outfield)] <- sapply(
   final_table_outfield[ , 7:ncol(final_table_outfield)], 
@@ -558,6 +563,9 @@ final_table_gks <- final_table_gks %>%
     across(where(is.numeric), sum)
   ) 
 
+final_table_gks <- final_table_gks %>% 
+  filter(MP <= 38)
+
 final_table_gks$Nation <- str_remove(final_table_gks$Nation, "^[^,]+,\\s*")
 final_table_gks$Pos <- str_remove(final_table_gks$Pos, "^[^,]+,\\s*")
 final_table_gks$Age <- str_remove(final_table_gks$Age, "^[^,]+,\\s*")
@@ -571,6 +579,8 @@ final_table_gks$Comp <- sapply(final_table_gks$Comp, function(x) {
     x
   }
 })
+
+final_table_gks <- final_table_gks %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
 final_table_gks[ , 7:ncol(final_table_gks)] <- sapply(
   final_table_gks[ , 7:ncol(final_table_gks)], 
@@ -603,6 +613,8 @@ unused_subs$Comp <- sapply(unused_subs$Comp, function(x) {
   }
 })
 
+unused_subs <- unused_subs %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
+
 unused_subs[ , 7:ncol(unused_subs)] <- sapply(
   unused_subs[ , 7:ncol(unused_subs)], 
   as.numeric
@@ -634,16 +646,12 @@ unused_subs_gk$Comp <- sapply(unused_subs_gk$Comp, function(x) {
   }
 })
 
+unused_subs_gk <- unused_subs_gk %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
+
 unused_subs_gk[ , 7:ncol(unused_subs_gk)] <- sapply(
   unused_subs_gk[ , 7:ncol(unused_subs_gk)], 
   as.numeric
 )
-
-# reorder columns (personal preference, not necessary)
-final_table_outfield <- final_table_outfield %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
-final_table_gks <- final_table_gks %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
-unused_subs <- unused_subs %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
-unused_subs_gk <- unused_subs_gk %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
 # remove obsolete objects
 rm(gk_tables, tables, urls)
