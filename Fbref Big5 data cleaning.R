@@ -551,9 +551,6 @@ final_table_outfield[ , 7:ncol(final_table_outfield)] <- sapply(
   as.numeric
 )
 
-final_table_outfield <- final_table_outfield %>% 
-  drop_na()
-
 ### final_table_gks ###
 
 final_table_gks$Nation <- str_remove(final_table_gks$Nation, "^\\w+\\s")
@@ -590,9 +587,6 @@ final_table_gks[ , 7:ncol(final_table_gks)] <- sapply(
   as.numeric
 )
 
-final_table_gks <- final_table_gks %>% 
-  drop_na()
-
 ### unused_subs ###
 
 unused_subs$Nation <- str_remove(unused_subs$Nation, "^\\w+\\s")
@@ -626,9 +620,6 @@ unused_subs[ , 7:ncol(unused_subs)] <- sapply(
   as.numeric
 )
 
-unused_subs <- unused_subs %>% 
-  drop_na()
-
 ### unused_subs_gk ###
 
 unused_subs_gk$Nation <- str_remove(unused_subs_gk$Nation, "^\\w+\\s")
@@ -661,9 +652,6 @@ unused_subs_gk[ , 7:ncol(unused_subs_gk)] <- sapply(
   unused_subs_gk[ , 7:ncol(unused_subs_gk)], 
   as.numeric
 )
-
-unused_subs_gk <- unused_subs_gk %>% 
-  drop_na()
 
 # remove obsolete objects
 rm(gk_tables, tables, urls)
