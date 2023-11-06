@@ -493,12 +493,12 @@ final_table_outfield$Min <- gsub(",", "", final_table_outfield$Min)
 final_table_gks$Min <- gsub(",", "", final_table_gks$Min)
 
 # convert numeric columns to numeric (except age and born, for now)
-final_table_outfield[ , 9:ncol(final_table_outfield)] <- sapply(
+final_table_outfield[ , 9:ncol(final_table_outfield)] <- lapply(
   final_table_outfield[ , 9:ncol(final_table_outfield)],
   as.numeric
 )
 
-final_table_gks[ , 9:ncol(final_table_gks)] <- sapply(
+final_table_gks[ , 9:ncol(final_table_gks)] <- lapply(
   final_table_gks[ , 9:ncol(final_table_gks)],
   as.numeric
 )
@@ -531,8 +531,9 @@ final_table_outfield <- final_table_outfield %>%
   filter(MP <= 38)
 
 final_table_outfield$Nation <- str_remove(final_table_outfield$Nation, "^[^,]+,\\s*")
-final_table_outfield$Pos <- str_remove(final_table_outfield$Pos, "^[^,]+,\\s*")
+final_table_outfield$Pos <- str_remove(final_table_outfield$Pos, ",.*$")
 final_table_outfield$Age <- str_remove(final_table_outfield$Age, "^[^,]+,\\s*")
+final_table_outfield$Age <- str_remove(final_table_outfield$Age, "-.*$")
 final_table_outfield$Born <- str_remove(final_table_outfield$Born, "^[^,]+,\\s*")
 
 final_table_outfield$Comp <- sapply(final_table_outfield$Comp, function(x) {
@@ -546,7 +547,9 @@ final_table_outfield$Comp <- sapply(final_table_outfield$Comp, function(x) {
 
 final_table_outfield <- final_table_outfield %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
-final_table_outfield[ , 7:ncol(final_table_outfield)] <- sapply(
+final_table_outfield[is.na(final_table_outfield)] <- 0
+
+final_table_outfield[ , 7:ncol(final_table_outfield)] <- lapply(
   final_table_outfield[ , 7:ncol(final_table_outfield)], 
   as.numeric
 )
@@ -567,8 +570,9 @@ final_table_gks <- final_table_gks %>%
   filter(MP <= 38)
 
 final_table_gks$Nation <- str_remove(final_table_gks$Nation, "^[^,]+,\\s*")
-final_table_gks$Pos <- str_remove(final_table_gks$Pos, "^[^,]+,\\s*")
+final_table_gks$Pos <- str_remove(final_table_gks$Pos, ",.*$")
 final_table_gks$Age <- str_remove(final_table_gks$Age, "^[^,]+,\\s*")
+final_table_gks$Age <- str_remove(final_table_gks$Age, "-.*$")
 final_table_gks$Born <- str_remove(final_table_gks$Born, "^[^,]+,\\s*")
 
 final_table_gks$Comp <- sapply(final_table_gks$Comp, function(x) {
@@ -582,7 +586,9 @@ final_table_gks$Comp <- sapply(final_table_gks$Comp, function(x) {
 
 final_table_gks <- final_table_gks %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
-final_table_gks[ , 7:ncol(final_table_gks)] <- sapply(
+final_table_gks[is.na(final_table_gks)] <- 0
+
+final_table_gks[ , 7:ncol(final_table_gks)] <- lapply(
   final_table_gks[ , 7:ncol(final_table_gks)], 
   as.numeric
 )
@@ -600,8 +606,9 @@ unused_subs <- unused_subs %>%
   ) 
 
 unused_subs$Nation <- str_remove(unused_subs$Nation, "^[^,]+,\\s*")
-unused_subs$Pos <- str_remove(unused_subs$Pos, "^[^,]+,\\s*")
+unused_subs$Pos <- str_remove(unused_subs$Pos, ",.*$")
 unused_subs$Age <- str_remove(unused_subs$Age, "^[^,]+,\\s*")
+unused_subs$Age <- str_remove(unused_subs$Age, "-.*$")
 unused_subs$Born <- str_remove(unused_subs$Born, "^[^,]+,\\s*")
 
 unused_subs$Comp <- sapply(unused_subs$Comp, function(x) {
@@ -615,7 +622,9 @@ unused_subs$Comp <- sapply(unused_subs$Comp, function(x) {
 
 unused_subs <- unused_subs %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
-unused_subs[ , 7:ncol(unused_subs)] <- sapply(
+unused_subs[is.na(unused_subs)] <- 0
+
+unused_subs[ , 7:ncol(unused_subs)] <- lapply(
   unused_subs[ , 7:ncol(unused_subs)], 
   as.numeric
 )
@@ -633,8 +642,9 @@ unused_subs_gk <- unused_subs_gk %>%
   ) 
 
 unused_subs_gk$Nation <- str_remove(unused_subs_gk$Nation, "^[^,]+,\\s*")
-unused_subs_gk$Pos <- str_remove(unused_subs_gk$Pos, "^[^,]+,\\s*")
+unused_subs_gk$Pos <- str_remove(unused_subs_gk$Pos, ",.*$")
 unused_subs_gk$Age <- str_remove(unused_subs_gk$Age, "^[^,]+,\\s*")
+unused_subs_gk$Age <- str_remove(unused_subs_gk$Age, "-.*$")
 unused_subs_gk$Born <- str_remove(unused_subs_gk$Born, "^[^,]+,\\s*")
 
 unused_subs_gk$Comp <- sapply(unused_subs_gk$Comp, function(x) {
@@ -648,7 +658,9 @@ unused_subs_gk$Comp <- sapply(unused_subs_gk$Comp, function(x) {
 
 unused_subs_gk <- unused_subs_gk %>% relocate(id, Player, Pos, Nation, Squad, Comp, Age)
 
-unused_subs_gk[ , 7:ncol(unused_subs_gk)] <- sapply(
+unused_subs_gk[is.na(unused_subs_gk)] <- 0
+
+unused_subs_gk[ , 7:ncol(unused_subs_gk)] <- lapply(
   unused_subs_gk[ , 7:ncol(unused_subs_gk)], 
   as.numeric
 )
