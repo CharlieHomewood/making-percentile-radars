@@ -667,3 +667,4 @@ unused_subs_gk[ , 7:ncol(unused_subs_gk)] <- lapply(
 
 # remove obsolete objects
 rm(gk_tables, tables, urls)
+
